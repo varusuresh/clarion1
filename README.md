@@ -1,5 +1,4 @@
 # helloworld1
-stride interview
 package java8.features;
 
 import java.util.ArrayList;
