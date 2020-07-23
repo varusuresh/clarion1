@@ -1,0 +1,88 @@
+package GeeksforGeeks.Geeks;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Map;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+//import TestISDA.JSONObject;
+//import TestISDA.JSONReadFromTheFileTest;
+
+public class upload_actual {
+	public static void main(String[] args) throws InterruptedException, Exception {
+		System.setProperty("webdriver.chrome.driver", "C:\\Sel\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.get("http://157.245.106.175:8000/");
+		  driver.manage().window().maximize();
+		  	  Thread.sleep(2000);
+		 		  WebElement fileUpload = driver.findElement(By.xpath("//input[@id='pdf-file']"));			  
+		  fileUpload.sendKeys("D:\\8220_NY_mscs llc  ny law vsa 3.8.16 fully executed.pdf");
+		  Thread.sleep(2000);
+		   	WebElement testDropDown = driver.findElement(By.id("ctype"));  
+		  	Select dropdown = new Select(testDropDown); 
+		  	Select agreementType1 = new Select(driver.findElement(By.id("ctype"))); 
+		  	 	dropdown.selectByValue("VRG");
+		   	 	Thread.sleep(1000);
+		   	 driver.findElement(By.xpath("//*[@id='data']/button")).click();
+		   	 
+		   	Thread.sleep(3000);
+		    System.out.println(driver.findElement(By.xpath("//*[@id='res']/tbody/tr[1]/th[1]")).getText());
+		   	System.out.println(driver.findElement(By.xpath("//th[contains(text(),'Value Obtained')]")).getText());
+		    //System.out.println(driver.findElement(By.xpath("//th[contains(text(),'Action')]")).getText());
+		    driver.findElement(By.xpath("//button[@id='editButton0']")).click();
+		    //JSONReadFromTheFileTest compare=new JSONReadFromTheFileTest();
+		    /*JSONParser jsonParser = new JSONParser();
+		    JSONObject jsonobj=null;
+		    try (FileReader reader = new FileReader("C:\\Users\\leo\\Desktop\\CCR.json");)
+		           {
+		   JSONObject obj = (JSONObject) jsonParser.parse(reader);
+		    jsonobj= (JSONObject) obj;
+
+		   }*/
+		    FileReader file1reader = new FileReader("C:\\\\Users\\\\leo\\\\Desktop\\\\CCR\\\\expecte_Json_file.json");
+			JSONParser jsonParser = new JSONParser();
+			JSONObject file1JsonObj = (JSONObject) jsonParser.parse(file1reader);
+
+		    //Map<String, String> results = jsontojava.getJsonFileComparsionResults("C:\\Users\\leo\\Desktop\\CCR\\expecte_Json_file.json", file2Location)
+		    //If(results.containsValue(false)){
+
+		    //}
+			int passcount=0, failcount=0;
+		     	for(int i = 0; i<42; i++)
+					{
+		   								
+					String Key = driver.findElement(By.id("key_value_"+i)).getText().toString();
+					System.out.println(Key);
+					String value = driver.findElement(By.id("val"+i)).getText().toString();
+				    System.out.println(value);
+				    //String res=compare.parseEmployeeObject(jsonobj, Key, value)
+				    		//System.out.println(Key+" : "+res);
+				    if(jsontojava.getJsonFileComparsionResults(file1JsonObj, Key, value))
+				    {
+				    	passcount++;
+				     
+					}
+				    else
+				    {
+				    	failcount++;
+				    }
+				    //System.out.println(Key+">"+jsontojava.getJsonFileComparsionResults(file1JsonObj, Key, value));
+				    }
+		     	System.out.println("Number of Test case passed: "+passcount);
+		     	System.out.println("Number of Test case failed: "+failcount);
+		     	
+		     	email mail=new email();
+		     	String report="Number of Test cases passed: "+passcount+"  and   "+" Number of Test cases failed: "+failcount;
+			     	mail.sendSimpleMessage("CCR_ISDA", report);
+		//driver.quit();
+		
+		// TODO Auto-generated method stub
+
+
+	}
+
+}
