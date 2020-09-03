@@ -1,0 +1,71 @@
+package Tests;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Test1 {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+		
+		
+		// WebDriverManager.chromedriver().setup();
+
+
+      //System.setProperty("webdriver.chrome.driver", "\"C:\\Program Files (x86)\\Google\\Chrome Beta\\Application\");
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Sel\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+      //  WebDriver driver1 = new FirefoxDriver();
+
+		driver.get("https://natixis.kyc.stride.ai/login");
+		driver.manage().window().maximize();
+		driver.findElement(By.xpath("//input[@placeholder='Username']")).sendKeys("john");
+		driver.findElement(By.xpath("//input[@placeholder='Password']")).sendKeys("beatles");
+		driver.findElement(By.xpath("//button[@class='btn text-large btn-stride-blue center-block mgbt30']")).click();
+		Thread.sleep(8000);
+		driver.findElement(By.xpath("//input[@id='mat-input-1']")).sendKeys("societe generale");
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//*[@id=\'cdk-step-content-0-0\']/div/div[5]/button/span")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//*[@id='mat-select-3']/div/div[1]")).click();
+		Thread.sleep(2000);
+
+	    driver.findElement(By.xpath("//span[contains(text(),'France')]")).click();
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//div[@class='row ng-star-inserted']//span[@class='mat-button-wrapper'][contains(text(),'Next')]")).click();
+		Thread.sleep(2000);
+		WebElement fileUpload = null;
+		//WebElement fileUpload = driver.findElement(By.xpath("//span[contains(text(),'Upload Annual Report')]"));
+		//fileUpload.sendKeys("C:\\Users/leo/Stride_KYC_User_Guide%201.2.pdf");
+		//fileUpload.sendKeys("D:\\upload.pdf");
+//			fileUpload.sendKeys("file:///C:/Users/leo/Stride_KYC_User_Guide%201.2.pdf");
+
+		driver.findElement(By.xpath("//div[@class='row mt-4']//span[@class='mat-button-wrapper'][contains(text(),'Next')]")).click();
+		Thread.sleep(4000);
+
+		driver.findElement(By.xpath("//span[@class='slider round']")).click();
+		driver.findElement(By.xpath("//*[@id=\"mat-checkbox-1\"]/label/div")).click();
+		driver.findElement(By.xpath("//*[@id=\"mat-checkbox-2\"]/label/div")).click();
+		driver.findElement(By.xpath("//*[@id=\"mat-checkbox-3\"]/label/div")).click();
+		driver.findElement(By.xpath("//*[@id=\"mat-checkbox-4\"]/label/div")).click();
+		driver.findElement(By.xpath("//*[@id=\"mat-checkbox-5\"]/label/div")).click();
+		driver.findElement(By.xpath("//*[@id=\"mat-checkbox-6\"]/label/div")).click();
+		driver.findElement(By.xpath("//*[@id=\"mat-checkbox-7\"]/label/div")).click();
+		driver.findElement(By.xpath("//*[@id=\"mat-checkbox-8\"]/label/div")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@class='btn mt-2 btn-blue-outline']")).click();
+		System.out.println(driver.findElement(By.xpath("//h4[@class='text-bold-blue text-smaller']")).getText());
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//button[contains(text(),'Add to favorites')]")).click();
+		driver.findElement(By.xpath("//input[@id='mat-input-5']")).sendKeys("Test it");
+		driver.findElement(By.xpath("//span[contains(text(),'Ok')]")).click();
+
+
+}
